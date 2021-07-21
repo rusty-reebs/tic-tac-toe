@@ -1,0 +1,17 @@
+
+
+
+.board {
+    display: grid;
+    width: 500px;
+    height: 500px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 5px;    
+}
+
+.cell {
+    background-color: cornflowerblue;
+    text-align: center;
+    
+}
