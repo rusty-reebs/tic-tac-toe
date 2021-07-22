@@ -1,6 +1,18 @@
 
+/* Xs and Os are not vertically centered in cell divs */
 
 
+body {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.title {
+    font-family: Chewy;
+    font-size: 20px;
+}
 .board {
     display: grid;
     width: 500px;
@@ -12,6 +24,10 @@
 
 .cell {
     background-color: cornflowerblue;
+    border-radius: 10px;
     text-align: center;
-    
+    font-family: 'Chewy';
+    font-size: 120px;
+    color: black;
+    opacity: 0.9;
 }
