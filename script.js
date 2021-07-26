@@ -11,13 +11,23 @@ const gameBoard = (() => {
     const celldivs = document.querySelectorAll(".cell"); // squares is a NodeList, not an array
     const cells = Array.from(celldivs);
     
-    cells.forEach(cell => {
+    //! what to do with click listeners once they are listening? When there is a click it must call a function.
+    //! need to change array to X or O depending on player turn
+    //! player 1, update array
+    //! player 2, update array, etc
+    
+
+    cells.forEach((cell, index) => {
         cell.addEventListener("click", () => {  // This adds click listener to each cell
+            player1(index);
             console.log(cell);
-            })
+            });
         });
 
-    const gameArray = ["X", "O", "X", "O", "X", "O", "X", "O", "X"];
+   
+
+    // const gameArray = ["X", "O", "X", "O", "X", "O", "X", "O", "X"];
+    const gameArray = ["", "", "", "", "", "", "", "", ""];
     
     const populateBoard = () => {
         // cells.forEach(index => {
@@ -39,22 +49,33 @@ return {populateBoard, gameArray, cells}; // makes methods public
 })();
 
 
+function player1(cell) {
+    gameBoard.gameArray.splice(cell, 1, "X");
+    console.log(gameBoard.gameArray);
+    gameBoard.populateBoard();
+}
+
+function player2(cell) {
+    gameBoard.gameArray.splice(cell, 1, "O");
+    console.log(gameBoard.gameArray);
+    gameBoard.populateBoard();
+}
+
 // Module for game flow
 
 //! decide what to put in game flow module
+    //! player1 move click
+    //! player2 move
+
 // TODO upon click, then change array to X or O
 
 
-// This code works to change the first cell
-// cell1.addEventListener("click", () => {
-    //     gameBoard.gameArray.splice(0, 1, "A");
-    //     console.log(gameBoard.gameArray);
-    //     gameBoard.populateBoard();
-    // })
+
     
 gameBoard.populateBoard();
 
 
+//! Player 1 clicks place X and Player 2 clicks place O
 // Factory for players
 
 const player = (playername) => {
