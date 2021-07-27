@@ -15,47 +15,37 @@ const gameBoard = (() => {
     //! need to change array to X or O depending on player turn
     //! player 1, update array
     //! player 2, update array, etc
+    //! if array = true, then go to player2?
+    //! if array contains "X", go to player2?
+
     
 
     cells.forEach((cell, index) => {
         cell.addEventListener("click", () => {  // This adds click listener to each cell
-            player1(index);
+            goPlayer1(index); // passes clicked cell index to gameArray
             console.log(cell);
             });
         });
-
-   
 
     // const gameArray = ["X", "O", "X", "O", "X", "O", "X", "O", "X"];
     const gameArray = ["", "", "", "", "", "", "", "", ""];
     
     const populateBoard = () => {
-        // cells.forEach(index => {
-        //     cells[index].innerHTML = gameArray[index];  //! This didn't work
-        // });
-
-        cells[0].innerHTML = gameArray[0];  // but this does
-        cells[1].innerHTML = gameArray[1];
-        cells[2].innerHTML = gameArray[2];
-        cells[3].innerHTML = gameArray[3];
-        cells[4].innerHTML = gameArray[4];
-        cells[5].innerHTML = gameArray[5];
-        cells[6].innerHTML = gameArray[6];
-        cells[7].innerHTML = gameArray[7];
-        cells[8].innerHTML = gameArray[8];
+        cells.forEach((cell, index) => {  // uses cells array index to get gameArray
+            cells[index].innerHTML = gameArray[index];
+        });
     };
 
 return {populateBoard, gameArray, cells}; // makes methods public
 })();
 
-
-function player1(cell) {
+const goPlayer1 = (cell) => {
     gameBoard.gameArray.splice(cell, 1, "X");
     console.log(gameBoard.gameArray);
     gameBoard.populateBoard();
 }
 
-function player2(cell) {
+const goPlayer2 = (cell) => {
     gameBoard.gameArray.splice(cell, 1, "O");
     console.log(gameBoard.gameArray);
     gameBoard.populateBoard();
@@ -67,11 +57,8 @@ function player2(cell) {
     //! player1 move click
     //! player2 move
 
-// TODO upon click, then change array to X or O
 
 
-
-    
 gameBoard.populateBoard();
 
 
