@@ -2,6 +2,8 @@
 // TODO -- build player objects
 // TODO -- build object to control flow of game
 
+// TODO RE-WORK OBJECTS. gameBoard for array. gamePlay for cells. displayController?
+
 //! Goal -- use as little global code as possible. Use factories and modules.
 
 
