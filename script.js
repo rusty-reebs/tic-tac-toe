@@ -45,10 +45,12 @@ const playGame = (() => {
 })();
 
 // TODO make a player factory
+// TODO we want objects to describe our players and encapsulate all of the things our players can do (functions!)
 
 // Player factory
-const Player = () => {
-
+const Player = (name) => {
+    const getName = () => name;
+    
 }
 
 const goPlayer1 = (cell) => {       // put all this logic in a factory and then declare player1 as the variable
