@@ -21,28 +21,45 @@ const gameBoard = (() => {
 })();
 
 // Game Play Method -- listens for clicks and adds markers
+//! For each turn, check if cell is already marked, then mark it, and go to next player
+//! also check for a tie (no cells left) and a winner
 const playGame = (() => {
     let move = 1;
     gameBoard.cells.forEach((cell, index) => {
         cell.addEventListener("click", () => {  // This adds click listener to each cell
             console.log(cell);
-            if (move%2 == 1) {
-                goPlayer1(index); // passes clicked cell index to gameArray
-            }    
-            else {
-                goPlayer2(index);
+            if (checkCell(index)) {
+                console.log("Occupado");
             }
-            move++;
-            console.log(move);
+            else {
+                if (move%2 == 1) {
+                    goPlayer1(index); // passes clicked cell index to gameArray
+                }    
+                else {
+                    goPlayer2(index);
+                }
+                move++;
+                console.log(move);
+                checkForTie();
+            }
+            })
         });
-    });    
+      
+    const checkCell = (index) => {
+        if (gameArray.newArray[index] != "") {
+            console.log("Cell occupied");
+            return true;
+        }
+    };
 
-
+    const checkForTie = () => {
+        if (move == 10) {
+            console.log("Tie Game");
+            return true;
+            //TODO show pop up box, delay and then restart
+        }
+    };
         
-//! For each turn, check if cell is already marked, then mark it, and go to next player
-//! also check for a tie (no cells left) and a winner
-// TODO keep track of whose turn it is
-
 })();
 
 // TODO make a player factory
