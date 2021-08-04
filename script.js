@@ -48,9 +48,22 @@ const playGame = (() => {
     const checkCell = (index) => {
         if (gameArray.newArray[index] != "") {
             console.log("Cell occupied");
+            openOccupied();
+            setTimeout(() => closeOccupied(), 2000);
             return true;
+            //TODO show pop up box, delay and then continue
         }
     };
+
+    const openOccupied = () => {
+        document.getElementById("occupiedpopup").style.display = "block";
+
+    }
+
+    const closeOccupied = () => {
+        document.getElementById("occupiedpopup").style.display = "none";
+
+    }
 
     const checkForTie = () => {
         if (move == 10) {
