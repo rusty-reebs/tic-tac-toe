@@ -118,6 +118,7 @@ const playGame = (() => {
         };
     };
 
+    
     const gameInit = () => {  // initializes variables, arrays and game
         //! resets player names, array and calls populateBoard
         closePop();
@@ -125,15 +126,22 @@ const playGame = (() => {
         move = 1;
         gameArray.newArray = ["", "", "", "", "", "", "", "", ""];
         gameBoard.populateBoard();
-
-
-    };
-
-    return { gameInit };
         
+        
+    };
+    
+    return { gameInit };
+    
 })();
 
-// TODO make a player factory
+//? does it have to be global?
+const restart = document.getElementById("restart");
+restart.addEventListener("click", () => {
+    console.log("reset");
+    playGame.gameInit();
+    };
+);
+
 // TODO we want objects to describe our players and encapsulate all of the things our players can do (functions!)
 
 // Player factory
