@@ -15,19 +15,26 @@
         <h1>Tic-Tac-Toe</h1>
         <h3>A project coded in HTML, CSS, and JavaScript</h3>
         </div>
+        <div class="names" id="namespopup">
+            <form>
+                <input id="player1" placeholder="Player 1 Name" name="player1"><br>
+                <input id="player2" placeholder="Player 2 Name" name="player2"><br>
+                <button type="submit" class="restart" onclick="submitNames();">Go</button>
+            </form>
+        </div>
         <div class="popup" id="popup">
             <h3 id="text"></h3>
         </div>
         <div class="board">
-            <div class="cell" id="one">one</div>
-            <div class="cell" id="two">two</div>
-            <div class="cell" id="three">three</div>
-            <div class="cell" id="four">four</div>
-            <div class="cell" id="five">five</div>
-            <div class="cell" id="six">six</div>
-            <div class="cell" id="seven">seven</div>
-            <div class="cell" id="eight">eight</div>
-            <div class="cell" id="nine">nine</div>
+            <div class="cell" id="one"></div>
+            <div class="cell" id="two"></div>
+            <div class="cell" id="three"></div>
+            <div class="cell" id="four"></div>
+            <div class="cell" id="five"></div>
+            <div class="cell" id="six"></div>
+            <div class="cell" id="seven"></div>
+            <div class="cell" id="eight"></div>
+            <div class="cell" id="nine"></div>
         </div>
         <div class="bottom">
             <button class="restart" id="restart">Restart</button>

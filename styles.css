@@ -1,7 +1,6 @@
 
 /* Xs and Os are not vertically centered in cell divs */
 /* add glowing animation to hover over divs */
-/* add pointer to cells */
 /* pop up box for player name inputs */
 
 
@@ -21,7 +20,8 @@ body {
 
 button {
     background-color: white;
-    border: 3px solid rgba(100,149,237,0.4);
+    /* border: 3px solid rgba(100,149,237,0.4); */
+    border: 3px solid rgba(0,0,0,0.6);
     color: black;
     font-family: Chewy;
     font-size: 30px;
@@ -32,6 +32,39 @@ button {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     cursor: pointer;
 
+}
+
+.names {
+    display: none;
+    position: absolute;
+    top: 25%;
+    z-index: 100;
+    width: 400px;
+    height: 400px;
+    font-family: Chewy;
+    font-size: 30px;
+    background-color: white;
+    opacity: 0.9;
+    border-radius: 10px;
+    border: 3px solid black;
+    text-align: center;
+    color: black;
+}
+
+input {
+    width: 80%;
+    font-family: Chewy;
+    font-size: 30px;
+    background-color: rgba(100,149,237,0.5);
+    margin-top: 60px;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    text-align: center;
+    outline: none;
+}
+
+input::placeholder {
+    color: black;
 }
 
 .popup {

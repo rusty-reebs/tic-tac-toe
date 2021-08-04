@@ -1,7 +1,6 @@
 //! Goal -- use as little global code as possible. Use factories and modules.
 
-//TODO reset button and player name inputs
-//TODO add event listener to reset button that calls playGame.gameInit()
+//TODO stop cell clicks during name inputs
 
 // Game Array Method -- holds the array of X's and O's
 const gameArray = (() => {
@@ -34,7 +33,6 @@ const playGame = (() => {
             }
             else {
                 if (move%2 == 1) {
-                    // goPlayer1(index); // passes clicked cell index to gameArray
                     player1.go(index); // passes clicked cell index to gameArray
                     checkforWin();
                     if (winner == true) {
@@ -47,7 +45,6 @@ const playGame = (() => {
                     console.log(winner);
                 }    
                 else {
-                    // goPlayer2(index);
                     player2.go(index);
                     checkforWin();
                     if (winner == true) {
@@ -99,16 +96,6 @@ const playGame = (() => {
         };
     };
 
-    // multipurpose pop up box
-    const openPop = (text) => {
-        document.getElementById("text").innerHTML = text;
-        document.getElementById("popup").style.display = "block";
-    };
-
-    const closePop = () => {
-        document.getElementById("popup").style.display = "none";
-    };
-
     const checkForTie = () => {  // function to check for a tie
         if (move == 10 && winner == null) {
             // console.log("Tie Game");
@@ -117,30 +104,69 @@ const playGame = (() => {
             return true;
         };
     };
-
+    
+    //TODO add a button New Players
+    const getPlayerNames = () => {
+        document.getElementById("namespopup").style.display = "block";
+        
+    }
+    
+    const closePlayerNames = () => {
+        document.getElementById("namespopup").style.display = "none";
+    }
+    
+    const restart = document.getElementById("restart");
+    restart.addEventListener("click", () => {
+        console.log("reset");
+        playGame.gameInit();
+    }
+    );
     
     const gameInit = () => {  // initializes variables, arrays and game
-        //! resets player names, array and calls populateBoard
+        //! resets array and calls populateBoard
         closePop();
         winner = null;
         move = 1;
         gameArray.newArray = ["", "", "", "", "", "", "", "", ""];
         gameBoard.populateBoard();
-        
+        // getPlayerNames();  // don't want to reset player names on new game
         
     };
+
+    const openPop = (text) => {      // multipurpose pop up box
+        document.getElementById("text").innerHTML = text;
+        document.getElementById("popup").style.display = "block";
+    };
+
+    const closePop = () => {
+        document.getElementById("popup").style.display = "none";
+    };
+
     
-    return { gameInit };
+    //TODO need local storage
+
+
+    return { gameInit, getPlayerNames, closePlayerNames };
     
 })();
 
-//? does it have to be global?
-const restart = document.getElementById("restart");
-restart.addEventListener("click", () => {
-    console.log("reset");
-    playGame.gameInit();
-    };
-);
+
+// TODO get player name form submit working
+// const form = document.getElementById("form");
+// const player1 = "";
+// const player2 = "";
+// const player1Name = document.getElementById("player1");
+// const player2Name = document.getElementById("player2");
+// const submitNames = () => {
+//     player1 = Player (player1Name.value, "X");
+//     player2 = Player (player2Name.value, "O");
+//     setTimeout(closePlayerNames(), 300);
+// };
+
+// form.addEventListener("submit", function (e) { // stops refresh
+//     e.preventDefault();
+// });
+
 
 // TODO we want objects to describe our players and encapsulate all of the things our players can do (functions!)
 
@@ -155,21 +181,10 @@ const Player = (name, marker) => {
     return { getName, go };
 };
 
-const player1 = Player ("Rusty", "X");
-const player2 = Player ("Jaim", "O");
+player1 = Player ("Rusty", "X");
+player2 = Player ("Jaime", "O");
 
 gameBoard.populateBoard();
+// playGame.getPlayerNames();
 
-// const goPlayer1 = (cell) => {       // put all this logic in a factory and then declare player1 as the variable
-//     gameArray.newArray.splice(cell, 1, "X");
-//     console.log(gameArray.newArray);
-//     gameBoard.populateBoard();
-//     return; //! not sure if reqd
-// };
 
-// const goPlayer2 = (cell) => {
-//     gameArray.newArray.splice(cell, 1, "O");
-//     console.log(gameArray.newArray);
-//     gameBoard.populateBoard();
-//     return; //! not sure if reqd
-// };
