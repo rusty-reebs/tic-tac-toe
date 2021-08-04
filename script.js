@@ -21,9 +21,9 @@ const gameBoard = (() => {
 })();
 
 // Game Play Method -- listens for clicks and adds markers
-//! For each turn, check if cell is already marked, then mark it, and go to next player
 //! also check for a tie (no cells left) and a winner
 const playGame = (() => {
+    let winner = null;
     let move = 1;
     gameBoard.cells.forEach((cell, index) => {
         cell.addEventListener("click", () => {  // This adds click listener to each cell
@@ -34,40 +34,67 @@ const playGame = (() => {
             else {
                 if (move%2 == 1) {
                     goPlayer1(index); // passes clicked cell index to gameArray
+                    checkforWin();
+                    console.log(winner);
                 }    
                 else {
                     goPlayer2(index);
+                    checkforWin();
+                    console.log(winner);
                 }
                 move++;
                 console.log(move);
                 checkForTie();
+                //TODO if checkForTie is true, then restart
             }
             })
         });
-      
+    
+    const checkforWin = () => {
+        const winCombos = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6], 
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+            ];
+
+        winCombos.forEach((combo, index) => {
+            if (gameArray.newArray[combo[0]] && gameArray.newArray[combo[0]] === gameArray.newArray[combo[1]] && gameArray.newArray[combo[0]] === gameArray.newArray[combo[2]]) {
+                // winner = gameArray.newArray[combo[0]];
+                winner = true;
+            };
+            return winner;
+        })
+
+    }
+    
     const checkCell = (index) => {
         if (gameArray.newArray[index] != "") {
             console.log("Cell occupied");
-            openOccupied();
-            setTimeout(() => closeOccupied(), 2000);
+            openPop("Square Taken!");
+            setTimeout(() => closePop(), 2000);
             return true;
-            //TODO show pop up box, delay and then continue
         }
     };
 
-    const openOccupied = () => {
-        document.getElementById("occupiedpopup").style.display = "block";
-
+    const openPop = (text) => {
+        document.getElementById("text").innerHTML = text;
+        document.getElementById("popup").style.display = "block";
     }
 
-    const closeOccupied = () => {
-        document.getElementById("occupiedpopup").style.display = "none";
-
+    const closePop = () => {
+        document.getElementById("popup").style.display = "none";
     }
 
     const checkForTie = () => {
         if (move == 10) {
             console.log("Tie Game");
+            openPop("Tie Game!");
+            setTimeout(() => closePop(), 2000);
             return true;
             //TODO show pop up box, delay and then restart
         }
