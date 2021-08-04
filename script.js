@@ -20,7 +20,7 @@ const gameBoard = (() => {
     return { populateBoard, cells };
 })();
 
-// Game Play Method -- listens for clicks and adds markers
+// Game Play Method -- adds markers and checks for tie and win
 //! also check for a tie (no cells left) and a winner
 const playGame = (() => {
     let winner = null;
@@ -35,16 +35,34 @@ const playGame = (() => {
                 if (move%2 == 1) {
                     goPlayer1(index); // passes clicked cell index to gameArray
                     checkforWin();
+                    if (winner == true) {
+                        openPop("X wins!");
+                        setTimeout(() => gameInit(), 2000);
+                        
+                    }
+                    //! stop event listeners
                     console.log(winner);
                 }    
                 else {
                     goPlayer2(index);
                     checkforWin();
+                    if (winner == true) {
+                        openPop("O wins!");
+                        setTimeout(() => gameInit(), 2000);
+
+                    }
                     console.log(winner);
                 }
                 move++;
                 console.log(move);
-                checkForTie();
+                if (checkForTie()) {
+                    // gameInit();
+                    console.log("Tie Game");
+                    openPop("Tie Game!");
+                    setTimeout(() => gameInit(), 2000);
+                    console.log(gameArray.newArray);
+                };
+                //! tie overrides win on last move
                 //TODO if checkForTie is true, then restart
             }
             })
@@ -91,14 +109,27 @@ const playGame = (() => {
     }
 
     const checkForTie = () => {
-        if (move == 10) {
-            console.log("Tie Game");
-            openPop("Tie Game!");
-            setTimeout(() => closePop(), 2000);
+        if (move == 10 && winner == null) {
+            // console.log("Tie Game");
+            // openPop("Tie Game!");
+            // setTimeout(() => closePop(), 2000);
             return true;
             //TODO show pop up box, delay and then restart
         }
     };
+
+    const gameInit = () => {
+        //! resets player names, array and calls populateBoard
+        closePop();
+        winner = null;
+        move = 1;
+        gameArray.newArray = ["", "", "", "", "", "", "", "", ""];
+        gameBoard.populateBoard();
+
+
+    }
+
+    return { gameInit };
         
 })();
 
