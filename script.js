@@ -1,5 +1,7 @@
 //! Goal -- use as little global code as possible. Use factories and modules.
 
+//TODO reset button and player name inputs
+//TODO add event listener to reset button that calls playGame.gameInit()
 
 // Game Array Method -- holds the array of X's and O's
 const gameArray = (() => {
@@ -21,7 +23,6 @@ const gameBoard = (() => {
 })();
 
 // Game Play Method -- adds markers and checks for tie and win
-//! also check for a tie (no cells left) and a winner
 const playGame = (() => {
     let winner = null;
     let move = 1;
@@ -33,10 +34,12 @@ const playGame = (() => {
             }
             else {
                 if (move%2 == 1) {
-                    goPlayer1(index); // passes clicked cell index to gameArray
+                    // goPlayer1(index); // passes clicked cell index to gameArray
+                    player1.go(index); // passes clicked cell index to gameArray
                     checkforWin();
                     if (winner == true) {
-                        openPop("X wins!");
+                        openPop(player1.getName() + " wins!");
+                        console.log(player1.getName());
                         setTimeout(() => gameInit(), 2000);
                         
                     }
@@ -44,10 +47,11 @@ const playGame = (() => {
                     console.log(winner);
                 }    
                 else {
-                    goPlayer2(index);
+                    // goPlayer2(index);
+                    player2.go(index);
                     checkforWin();
                     if (winner == true) {
-                        openPop("O wins!");
+                        openPop(player2.getName() + " wins!");
                         setTimeout(() => gameInit(), 2000);
 
                     }
@@ -56,19 +60,16 @@ const playGame = (() => {
                 move++;
                 console.log(move);
                 if (checkForTie()) {
-                    // gameInit();
                     console.log("Tie Game");
                     openPop("Tie Game!");
                     setTimeout(() => gameInit(), 2000);
                     console.log(gameArray.newArray);
                 };
-                //! tie overrides win on last move
-                //TODO if checkForTie is true, then restart
             }
             })
         });
     
-    const checkforWin = () => {
+    const checkforWin = () => {  // function to check for winner
         const winCombos = [
             [0, 1, 2],
             [3, 4, 5],
@@ -86,39 +87,38 @@ const playGame = (() => {
                 winner = true;
             };
             return winner;
-        })
-
-    }
+        });
+    };
     
-    const checkCell = (index) => {
+    const checkCell = (index) => {  // function to check if cell already has a marker
         if (gameArray.newArray[index] != "") {
             console.log("Cell occupied");
             openPop("Square Taken!");
             setTimeout(() => closePop(), 2000);
             return true;
-        }
+        };
     };
 
+    // multipurpose pop up box
     const openPop = (text) => {
         document.getElementById("text").innerHTML = text;
         document.getElementById("popup").style.display = "block";
-    }
+    };
 
     const closePop = () => {
         document.getElementById("popup").style.display = "none";
-    }
+    };
 
-    const checkForTie = () => {
+    const checkForTie = () => {  // function to check for a tie
         if (move == 10 && winner == null) {
             // console.log("Tie Game");
             // openPop("Tie Game!");
             // setTimeout(() => closePop(), 2000);
             return true;
-            //TODO show pop up box, delay and then restart
-        }
+        };
     };
 
-    const gameInit = () => {
+    const gameInit = () => {  // initializes variables, arrays and game
         //! resets player names, array and calls populateBoard
         closePop();
         winner = null;
@@ -127,7 +127,7 @@ const playGame = (() => {
         gameBoard.populateBoard();
 
 
-    }
+    };
 
     return { gameInit };
         
@@ -137,24 +137,31 @@ const playGame = (() => {
 // TODO we want objects to describe our players and encapsulate all of the things our players can do (functions!)
 
 // Player factory
-const Player = (name) => {
+const Player = (name, marker) => {
     const getName = () => name;
-    
-}
-
-const goPlayer1 = (cell) => {       // put all this logic in a factory and then declare player1 as the variable
-    gameArray.newArray.splice(cell, 1, "X");
-    console.log(gameArray.newArray);
-    gameBoard.populateBoard();
-    return; //! not sure if reqd
+    const go = (cell) => {
+        gameArray.newArray.splice(cell, 1, marker);
+        console.log(gameArray.newArray);
+        gameBoard.populateBoard();
+    }
+    return { getName, go };
 };
 
-const goPlayer2 = (cell) => {
-    gameArray.newArray.splice(cell, 1, "O");
-    console.log(gameArray.newArray);
-    gameBoard.populateBoard();
-    return; //! not sure if reqd
-};
+const player1 = Player ("Rusty", "X");
+const player2 = Player ("Jaim", "O");
 
 gameBoard.populateBoard();
 
+// const goPlayer1 = (cell) => {       // put all this logic in a factory and then declare player1 as the variable
+//     gameArray.newArray.splice(cell, 1, "X");
+//     console.log(gameArray.newArray);
+//     gameBoard.populateBoard();
+//     return; //! not sure if reqd
+// };
+
+// const goPlayer2 = (cell) => {
+//     gameArray.newArray.splice(cell, 1, "O");
+//     console.log(gameArray.newArray);
+//     gameBoard.populateBoard();
+//     return; //! not sure if reqd
+// };
