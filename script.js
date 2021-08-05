@@ -27,9 +27,7 @@ const playGame = (() => {
     let move = 1;
     gameBoard.cells.forEach((cell, index) => {
         cell.addEventListener("click", () => {  // adds click listener to each cell
-            console.log(cell);
             if (checkCell(index)) {
-                console.log("Occupado");
             }
             else {
                 if (move%2 == 1) {
@@ -37,12 +35,8 @@ const playGame = (() => {
                     checkforWin();
                     if (winner == true) {
                         openPop(player1.getName() + " wins!");
-                        console.log(player1.getName());
                         setTimeout(() => gameInit(), 2000);
-                        
                     }
-                    //! stop event listeners
-                    console.log(winner);
                 }    
                 else {
                     player2.go(index);
@@ -50,17 +44,12 @@ const playGame = (() => {
                     if (winner == true) {
                         openPop(player2.getName() + " wins!");
                         setTimeout(() => gameInit(), 2000);
-
                     }
-                    console.log(winner);
                 }
                 move++;
-                console.log(move);
                 if (checkForTie()) {
-                    console.log("Tie Game");
                     openPop("Tie Game!");
                     setTimeout(() => gameInit(), 2000);
-                    console.log(gameArray.newArray);
                 }
             }
             });
@@ -88,7 +77,6 @@ const playGame = (() => {
     
     const checkCell = (index) => {  // function to check if cell already has a marker
         if (gameArray.newArray[index] != "") {
-            console.log("Cell occupied");
             openPop("Square Taken!");
             setTimeout(() => closePop(), 2000);
             return true;
@@ -116,13 +104,11 @@ const playGame = (() => {
 
     const restart = document.getElementById("restart");     // Restart button
     restart.addEventListener("click", () => {
-        console.log("reset");
         gameInit();
     });
 
     const newPlayers = document.getElementById("newplayers");   // New Players button
     newPlayers.addEventListener("click", () => {
-        console.log("new players");
         gameInit();                 // clears game board
         player1Name.value = "";     // resets player names on popup form
         player2Name.value = "";
@@ -157,7 +143,6 @@ const playGame = (() => {
     };
 
     return { openPlayerNames, submitNames };
-    
 })();
 
 
@@ -166,14 +151,11 @@ const Player = (name, marker) => {
     const getName = () => name;
     const go = (cell) => {
         gameArray.newArray.splice(cell, 1, marker);
-        console.log(gameArray.newArray);
         gameBoard.populateBoard();
     }
 
     return { getName, go };
-
 };
-
 
 gameBoard.populateBoard();
 playGame.openPlayerNames();
