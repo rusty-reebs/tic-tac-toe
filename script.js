@@ -21,7 +21,7 @@ const gameBoard = (() => {
 })();
 
 
-// Game Play Method -- adds markers and checks for tie and win
+// Play Game Method -- manages players and buttons, and adds markers and checks for tie and win
 const playGame = (() => {
     let winner = null;
     let move = 1;
@@ -80,7 +80,6 @@ const playGame = (() => {
 
         winCombos.forEach((combo, index) => {   // runs function on each winning combo
             if (gameArray.newArray[combo[0]] && gameArray.newArray[combo[0]] === gameArray.newArray[combo[1]] && gameArray.newArray[combo[0]] === gameArray.newArray[combo[2]]) {
-                // winner = gameArray.newArray[combo[0]];
                 winner = true;
             }
             return winner;
@@ -98,9 +97,6 @@ const playGame = (() => {
 
     const checkForTie = () => {  // function to check for a tie
         if (move == 10 && winner == null) {
-            // console.log("Tie Game");
-            // openPop("Tie Game!");
-            // setTimeout(() => closePop(), 2000);
             return true;
         }
     };
@@ -113,16 +109,21 @@ const playGame = (() => {
         document.getElementById("namespopup").style.display = "none";
     };
     
+    const form = document.querySelector("form");
+    form.addEventListener("submit", function (e) {      // stops refresh on submit
+        e.preventDefault();
+    });
+
     const restart = document.getElementById("restart");     // Restart button
     restart.addEventListener("click", () => {
         console.log("reset");
-        playGame.gameInit();
+        gameInit();
     });
 
     const newPlayers = document.getElementById("newplayers");   // New Players button
     newPlayers.addEventListener("click", () => {
         console.log("new players");
-        playGame.gameInit();        // clears game board
+        gameInit();                 // clears game board
         player1Name.value = "";     // resets player names on popup form
         player2Name.value = "";
         openPlayerNames();           // opens popup form
@@ -144,28 +145,21 @@ const playGame = (() => {
     const closePop = () => {
         document.getElementById("popup").style.display = "none";
     };
+    
+    const player1Name = document.getElementById("player1");
+    const player2Name = document.getElementById("player2");
+    
+    const submitNames = () => {
+        player1 = Player (player1Name.value, "X");
+        player2 = Player (player2Name.value, "O");
+        setTimeout(closePlayerNames(), 300);
+        gameInit();
+    };
 
-    return { gameInit, openPlayerNames, closePlayerNames };
+    return { openPlayerNames, submitNames };
     
 })();
 
-
-const form = document.querySelector("form");
-const player1Name = document.getElementById("player1");
-const player2Name = document.getElementById("player2");
-const submitNames = () => {
-    player1 = Player (player1Name.value, "X");
-    player2 = Player (player2Name.value, "O");
-    setTimeout(playGame.closePlayerNames(), 300);
-    playGame.gameInit();
-};
-
-form.addEventListener("submit", function (e) {      // stops refresh on submit
-    e.preventDefault();
-});
-
-
-// TODO we want objects to describe our players and encapsulate all of the things our players can do (functions!)
 
 // Player factory
 const Player = (name, marker) => {
@@ -175,12 +169,11 @@ const Player = (name, marker) => {
         console.log(gameArray.newArray);
         gameBoard.populateBoard();
     }
+
     return { getName, go };
+
 };
 
-// player1 = Player ("Rusty", "X");
-// player2 = Player ("Jaime", "O");
-// const nameArray = [];
 
 gameBoard.populateBoard();
 playGame.openPlayerNames();
