@@ -1,14 +1,14 @@
 //! Goal -- use as little global code as possible. Use factories and modules.
 
 
-// Game Array Method -- holds the array of X's and O's
+// Game Array Module -- holds the array of X's and O's
 const gameArray = (() => {
     const newArray = ["", "", "", "", "", "", "", "", ""];
     return { newArray };
 })();
 
 
-// Game Board Method -- fills in the cells with the array
+// Game Board Module -- fills in the cells with the array
 const gameBoard = (() => {
     const celldivs = document.querySelectorAll(".cell"); // celldivs is a NodeList, not an array
     const cells = Array.from(celldivs);
@@ -21,7 +21,7 @@ const gameBoard = (() => {
 })();
 
 
-// Play Game Method -- manages players and buttons, and adds markers and checks for tie and win
+// Play Game Module -- manages players and buttons, and adds markers and checks for tie and win
 const playGame = (() => {
     let winner = null;
     let move = 1;
