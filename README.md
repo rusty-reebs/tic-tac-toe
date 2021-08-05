@@ -9,6 +9,6 @@ Date completed: August 5, 2021
 
 **Screenshots**
 
-<img src="/screenshots/Screen%20Shot%202021-08-05%20at%2010.43.47.png" width="600px">
+<img src="/screenshots/Screen%20Shot%202021-08-05%20at%2010.43.47.png" height="250px">
 
 **TIL Things I Learned**
