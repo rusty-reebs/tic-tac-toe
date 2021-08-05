@@ -1,5 +1,4 @@
 # Tic-Tac-Toe game project ❌⭕️❌
------
 
 **A browser-based Tic-Tac-Toe game written in HTML, CSS, and JavaScript**.
 
