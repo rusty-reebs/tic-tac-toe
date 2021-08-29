@@ -12,8 +12,7 @@ Objectives: use factory functions and module patterns to reduce global code.
 ### Screenshots
 -----
 
-<img src="/screenshots/Screen%20Shot%202021-08-05%20at%2010.43.47.png" height="250px"><img src="/screenshots/Screen%20Shot%202021-08-05%20at%2010.45.15.png" height="250px">  
-<img src="/screenshots/Screen%20Shot%202021-08-05%20at%2010.47.17.png" height="250px"><img src="/screenshots/Screen%20Shot%202021-08-05%20at%2010.50.07.png" height="250px">
+<img src="./screenshots/tictactoe.gif" height="250px">
 
 ### TIL Things I Learned
 -----
