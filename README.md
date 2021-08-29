@@ -2,6 +2,8 @@
 
 **A browser-based Tic-Tac-Toe game written in HTML, CSS, and JavaScript**.
 
+**See it live at (https://rusty-reebs.github.io/tic-tac-toe/)!**
+
 Date started: July 21, 2021  
 Date completed: August 5, 2021
 
